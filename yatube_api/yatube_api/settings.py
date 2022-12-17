@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'posts',
     'django_filters',
     'djoser',
+    'rest_framework_simplejwt.token_blacklist'
 ]
 
 MIDDLEWARE = [
