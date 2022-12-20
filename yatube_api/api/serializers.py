@@ -1,6 +1,5 @@
 from djoser.serializers import UserSerializer
 from rest_framework import serializers
-from rest_framework.relations import SlugRelatedField
 from rest_framework.validators import UniqueTogetherValidator
 
 from posts.models import Comment, Follow, Group, Post, User
@@ -19,11 +18,19 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = SlugRelatedField(slug_field='username', read_only=True)
+    author = serializers.SlugRelatedField(
+        slug_field='username', read_only=True
+    )
+    post = serializers.SlugRelatedField(slug_field='post', read_only=True)
 
     class Meta:
         fields = '__all__'
         model = Post
+
+    def perform_create(self, validated_data):
+        if 'group' or 'comment' not in self.initial_data:
+            return Post.objects.create(**validated_data)
+        return Post.objects.create(**validated_data)
 
 
 class CommentSerializer(serializers.ModelSerializer):

@@ -29,12 +29,12 @@ cd api_final_yatube
 - Установить виртуальное окружение:
 
 ```
-python -m venv env
+python -m venv venv
 ```
 
 - Запустить виртуальное окружение
 ```
-env\Scripts\activate
+venv\Scripts\activate
 ```
 
 - Обновить pip:
