@@ -21,7 +21,6 @@ class PostSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         slug_field='username', read_only=True
     )
-    post = serializers.SlugRelatedField(slug_field='post', read_only=True)
 
     class Meta:
         fields = '__all__'
@@ -41,6 +40,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Comment
+        read_only_fields = ('author', 'create', 'post')
 
 
 class FollowSerializer(serializers.ModelSerializer):
